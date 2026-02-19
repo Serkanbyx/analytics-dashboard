@@ -17,6 +17,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Footer } from "@/components/layout/Footer";
 
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -134,6 +135,8 @@ export default function LoginPage() {
         <p className="text-center text-xs text-muted-foreground">
           Demo credentials: admin@dashboard.com / admin123
         </p>
+
+        <Footer />
       </div>
     </div>
   );
