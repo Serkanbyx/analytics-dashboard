@@ -41,8 +41,10 @@ export default function DashboardPage() {
   );
 
   useEffect(() => {
-    dispatch(fetchDashboardData());
-  }, [dispatch]);
+    if (!stats) {
+      dispatch(fetchDashboardData());
+    }
+  }, [dispatch, stats]);
 
   if (isLoading || !stats) {
     return (

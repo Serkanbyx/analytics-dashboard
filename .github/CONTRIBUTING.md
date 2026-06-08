@@ -90,16 +90,26 @@ Make sure you have the following installed:
 
 ```bash
 # Clone your fork
-git clone https://github.com/YOUR_USERNAME/REPOSITORY_NAME.git
+git clone https://github.com/YOUR_USERNAME/analytics-dashboard.git
 
 # Navigate to project directory
-cd REPOSITORY_NAME
+cd analytics-dashboard
 
-# Install dependencies (if applicable)
-# npm install / pip install -r requirements.txt / etc.
+# Install dependencies
+npm install
 
-# Start development server (if applicable)
-# npm start / python app.py / etc.
+# Start development server
+npm run dev
+```
+
+### Quality Checks
+
+Before opening a pull request, make sure the project passes all checks:
+
+```bash
+npm run lint   # ESLint static analysis
+npm run test   # Vitest unit tests
+npm run build  # Production build
 ```
 
 ## Style Guidelines

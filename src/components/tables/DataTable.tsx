@@ -43,6 +43,23 @@ const statusVariantMap = {
   pending: "warning",
 } as const;
 
+interface SortIconProps {
+  column: SortKey;
+  activeKey: SortKey;
+  direction: SortDir;
+}
+
+function SortIcon({ column, activeKey, direction }: SortIconProps) {
+  if (activeKey !== column) {
+    return <ArrowUpDown className="ml-1 h-3 w-3" />;
+  }
+  return direction === "asc" ? (
+    <ArrowUp className="ml-1 h-3 w-3" />
+  ) : (
+    <ArrowDown className="ml-1 h-3 w-3" />
+  );
+}
+
 export function DataTable({ data }: DataTableProps) {
   const [search, setSearch] = useState("");
   const [sortKey, setSortKey] = useState<SortKey>("name");
@@ -100,15 +117,6 @@ export function DataTable({ data }: DataTableProps) {
     setPage(1);
   };
 
-  const SortIcon = ({ column }: { column: SortKey }) => {
-    if (sortKey !== column) return <ArrowUpDown className="ml-1 h-3 w-3" />;
-    return sortDir === "asc" ? (
-      <ArrowUp className="ml-1 h-3 w-3" />
-    ) : (
-      <ArrowDown className="ml-1 h-3 w-3" />
-    );
-  };
-
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-2">
@@ -134,7 +142,12 @@ export function DataTable({ data }: DataTableProps) {
                 onClick={() => handleSort("name")}
                 className="inline-flex items-center font-medium hover:text-foreground"
               >
-                Name <SortIcon column="name" />
+                Name{" "}
+                <SortIcon
+                  column="name"
+                  activeKey={sortKey}
+                  direction={sortDir}
+                />
               </button>
             </TableHead>
             <TableHead>
@@ -142,7 +155,12 @@ export function DataTable({ data }: DataTableProps) {
                 onClick={() => handleSort("role")}
                 className="inline-flex items-center font-medium hover:text-foreground"
               >
-                Role <SortIcon column="role" />
+                Role{" "}
+                <SortIcon
+                  column="role"
+                  activeKey={sortKey}
+                  direction={sortDir}
+                />
               </button>
             </TableHead>
             <TableHead>
@@ -150,7 +168,12 @@ export function DataTable({ data }: DataTableProps) {
                 onClick={() => handleSort("status")}
                 className="inline-flex items-center font-medium hover:text-foreground"
               >
-                Status <SortIcon column="status" />
+                Status{" "}
+                <SortIcon
+                  column="status"
+                  activeKey={sortKey}
+                  direction={sortDir}
+                />
               </button>
             </TableHead>
             <TableHead className="hidden md:table-cell">
@@ -158,7 +181,12 @@ export function DataTable({ data }: DataTableProps) {
                 onClick={() => handleSort("joinedAt")}
                 className="inline-flex items-center font-medium hover:text-foreground"
               >
-                Joined <SortIcon column="joinedAt" />
+                Joined{" "}
+                <SortIcon
+                  column="joinedAt"
+                  activeKey={sortKey}
+                  direction={sortDir}
+                />
               </button>
             </TableHead>
             <TableHead className="text-right">
@@ -166,7 +194,12 @@ export function DataTable({ data }: DataTableProps) {
                 onClick={() => handleSort("revenue")}
                 className="inline-flex items-center font-medium hover:text-foreground"
               >
-                Revenue <SortIcon column="revenue" />
+                Revenue{" "}
+                <SortIcon
+                  column="revenue"
+                  activeKey={sortKey}
+                  direction={sortDir}
+                />
               </button>
             </TableHead>
           </TableRow>

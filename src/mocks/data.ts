@@ -66,13 +66,27 @@ export const revenueData: RevenueData[] = [
   { month: "Dec", revenue: 31200, expenses: 17200, profit: 14000 },
 ];
 
+// Seeded PRNG (mulberry32) keeps the mock traffic data stable across reloads,
+// which makes the dashboard predictable and the data testable.
+function createSeededRandom(seed: number): () => number {
+  let state = seed >>> 0;
+  return () => {
+    state = (state + 0x6d2b79f5) >>> 0;
+    let t = Math.imul(state ^ (state >>> 15), 1 | state);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+const seededRandom = createSeededRandom(20260101);
+
 export const trafficData: TrafficData[] = Array.from({ length: 30 }, (_, i) => {
   const date = new Date(2026, 0, i + 1);
   const dayName = date.toLocaleDateString("en-US", {
     month: "short",
     day: "numeric",
   });
-  const baseVisitors = 800 + Math.floor(Math.random() * 600);
+  const baseVisitors = 800 + Math.floor(seededRandom() * 600);
   const isWeekend = date.getDay() === 0 || date.getDay() === 6;
   const visitors = isWeekend
     ? Math.floor(baseVisitors * 0.6)
@@ -81,8 +95,8 @@ export const trafficData: TrafficData[] = Array.from({ length: 30 }, (_, i) => {
   return {
     day: dayName,
     visitors,
-    pageViews: Math.floor(visitors * (2.5 + Math.random())),
-    bounceRate: Math.round((30 + Math.random() * 25) * 10) / 10,
+    pageViews: Math.floor(visitors * (2.5 + seededRandom())),
+    bounceRate: Math.round((30 + seededRandom() * 25) * 10) / 10,
   };
 });
 

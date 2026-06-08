@@ -13,8 +13,9 @@ A modern, feature-rich analytics dashboard built with React 19, TypeScript, and 
 - **Analytics Page** — Detailed charts including revenue vs expenses, traffic trends, traffic sources pie chart, and profit margins
 - **Users Management** — Full-featured data table with search, column sorting, and pagination
 - **Responsive Design** — Mobile-friendly layout with collapsible sidebar navigation
-- **Dark Mode Support** — CSS variable-based theming with class-based dark mode
+- **Dark Mode** — One-click theme toggle with system-preference detection and `localStorage` persistence (no flash on reload)
 - **Mock API** — Simulated API calls with realistic delays (400-800ms) for demo purposes
+- **Tested & Linted** — Unit tests with Vitest + Testing Library and static analysis with ESLint
 
 ## Live Demo
 
@@ -39,6 +40,8 @@ Password: admin123
 - **shadcn/ui** — Accessible, customizable UI components built on Radix UI
 - **Recharts** — Composable charting library for interactive data visualization
 - **Lucide React** — Beautiful, consistent icon library
+- **Vitest + Testing Library** — Fast unit and component testing in a jsdom environment
+- **ESLint** — Flat-config linting with TypeScript, React Hooks, and React Refresh rules
 
 ## Installation
 
@@ -71,6 +74,17 @@ npm run dev
 npm run build
 npm run preview
 ```
+
+### Testing & Linting
+
+```bash
+npm run lint           # ESLint static analysis
+npm run test           # Run the Vitest suite once
+npm run test:watch     # Watch mode for development
+npm run test:coverage  # Generate a coverage report
+```
+
+> For a phase-by-phase build playbook of how this project was assembled, see [docs/build-guide.md](docs/build-guide.md).
 
 ## Usage
 
@@ -154,9 +168,11 @@ src/
 │   │   ├── AdminLayout.tsx   # Main layout wrapper with sidebar
 │   │   ├── Footer.tsx
 │   │   ├── Header.tsx        # Top bar with user menu
-│   │   └── Sidebar.tsx       # Navigation sidebar
+│   │   ├── Sidebar.tsx       # Navigation sidebar
+│   │   └── ThemeToggle.tsx   # Light/dark theme switch button
 │   ├── tables/               # Data display components
-│   │   └── DataTable.tsx     # Sortable, searchable, paginated table
+│   │   ├── DataTable.tsx     # Sortable, searchable, paginated table
+│   │   └── DataTable.test.tsx
 │   └── ui/                   # shadcn/ui primitive components
 ├── features/
 │   ├── auth/                 # Authentication feature module
@@ -168,14 +184,19 @@ src/
 │       ├── DashboardPage.tsx # Overview with KPIs & charts
 │       ├── AnalyticsPage.tsx # Detailed analytics charts
 │       └── UsersPage.tsx     # User management table
+├── hooks/                    # Reusable custom hooks
+│   └── useTheme.ts           # Theme state, persistence & system preference
 ├── lib/                      # Shared utilities
-│   └── utils.ts              # Currency, number, percentage formatters
+│   ├── utils.ts              # Currency, number, percentage formatters
+│   └── utils.test.ts
 ├── mocks/                    # Mock data & API simulation
 │   ├── api.ts                # Simulated API endpoints
-│   └── data.ts               # Realistic mock datasets
+│   └── data.ts               # Realistic mock datasets (seeded for determinism)
+├── test/                     # Test setup
+│   └── setup.ts              # Vitest + jest-dom configuration
 ├── App.tsx                   # Route definitions & app structure
 ├── main.tsx                  # Application entry point
-└── index.css                 # Global styles & CSS variables
+└── index.css                 # Global styles & CSS variables (light + dark)
 ```
 
 ## Customization
@@ -244,7 +265,9 @@ Modify CSS variables in `src/index.css` to customize the color scheme:
 - ✅ Users page with search, sorting, and pagination
 - ✅ Responsive sidebar navigation
 - ✅ Mobile-friendly layout
-- ✅ Dark mode CSS variable support
+- ✅ Dark mode toggle with system-preference detection and persistence
+- ✅ Unit & component tests with Vitest and Testing Library
+- ✅ ESLint flat-config setup
 - ✅ Netlify deployment configuration
 
 ### Future Features

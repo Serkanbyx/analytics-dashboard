@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Sidebar } from "./Sidebar";
+import { ThemeToggle } from "./ThemeToggle";
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -49,6 +50,8 @@ export function Header() {
         </Button>
 
         <div className="flex-1" />
+
+        <ThemeToggle />
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
