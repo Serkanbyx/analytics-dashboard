@@ -17,6 +17,26 @@ A modern, feature-rich analytics dashboard built with React 19, TypeScript, and 
 - **Mock API** — Simulated API calls with realistic delays (400-800ms) for demo purposes
 - **Tested & Linted** — Unit tests with Vitest + Testing Library and static analysis with ESLint
 
+## Screenshots
+
+### Login
+
+![Login page with email and password form](docs/screenshots/login.png)
+
+### Dashboard
+
+| Dark Mode | Light Mode |
+| --- | --- |
+| ![Dashboard — Dark Mode](docs/screenshots/dashboard-dark.png) | ![Dashboard — Light Mode](docs/screenshots/dashboard-light.png) |
+
+### Analytics
+
+![Analytics page with revenue, traffic, and conversion charts](docs/screenshots/analytics-dark.png)
+
+### Users
+
+![Users page with searchable, sortable data table](docs/screenshots/users-dark.png)
+
 ## Live Demo
 
 [🚀 View Live Demo](https://analytics-dashboardd.netlify.app/login)
